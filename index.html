@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Webtoon Studio – iOS 公開用 v0.1.4</title>
+<title>Webtoon Studio – iOS 公開用 v0.1.6</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Zen+Antique+Soft&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0d131d;--surface:#151e2b;--surface2:#202c3a;--border:#314055;--text:#eaf1f9;--muted:#9eafc3;--accent:#61b9ff;--pink:#f7aa8c;--green:#70d3ae}
@@ -11,7 +11,7 @@ header{height:64px;display:flex;align-items:center;gap:14px;padding:0 18px;borde
 button,.btnlike{border:1px solid var(--border);background:#263447;color:var(--text);border-radius:10px;padding:9px 12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;font-weight:650}button:hover{border-color:#7292ad;background:#31445c}.primary{background:#137cca;color:white;border-color:#168bdd}.primary:hover{background:#198de1}.danger{color:#ffabab}.quiet{background:transparent}.tiny{padding:5px 8px;font-size:12px}.active{background:#1a4670;border-color:#59aef0}.pill{border-radius:999px}.small{font-size:12px;color:var(--muted)}.label{font-size:12px;color:var(--muted);font-weight:650;display:block;margin:7px 0 3px}.notice{background:#1c2d3d;border:1px solid #35506a;border-radius:11px;padding:11px 12px;color:#c9dded;font-size:12px}.hint{color:var(--muted);font-size:12px}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.between{justify-content:space-between}.stack{display:flex;flex-direction:column;gap:9px}.spacer{flex:1}.line{height:1px;background:var(--border);margin:12px 0}h2{font-size:17px;margin:0}h3{margin:0 0 9px;font-size:13px;color:#d5e5f8}input[type=range]{accent-color:var(--accent);width:100%}input[type=text],input[type=number],textarea,select{background:#101927;color:var(--text);border:1px solid #39506a;border-radius:9px;padding:9px;width:100%;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--accent)}textarea{resize:vertical;min-height:76px}select{max-width:100%}
 #layout{display:grid;grid-template-columns:260px minmax(300px,1fr) 290px;min-height:calc(100dvh - 64px)}aside{background:var(--surface);padding:17px;min-width:0}#left{border-right:1px solid var(--border)}#right{border-left:1px solid var(--border)}#left h3,#right h3{padding-bottom:3px}.tablist{display:grid;gap:7px;margin-bottom:18px}.tab{justify-content:flex-start;text-align:left;padding:11px;width:100%}.number{font-size:11px;border:1px solid #58738c;border-radius:6px;padding:2px 6px}.tag{display:inline-block;padding:2px 7px;border-radius:999px;background:#314458;font-size:11px}.section{background:#1b2838;border:1px solid #2f4357;border-radius:13px;padding:11px;margin-bottom:12px}.group{margin-bottom:15px}.group b{display:block;margin:0 0 8px}.fileText{line-height:1.6;color:var(--muted);font-size:12px}#work{min-width:0;padding:20px;background:#0b1019}#work .workTitle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}#work .workTitle h2{font-size:18px}#workspace{min-height:65vh}.dropzone{border:2px dashed #4b647b;border-radius:15px;padding:35px 16px;text-align:center;background:#142032;cursor:pointer}.dropzone:hover{border-color:var(--accent)}.dropzone strong{display:block;font-size:17px;margin-bottom:8px}.dropzone input{display:none}
 #cropBoard{position:relative;margin:12px auto 6px;max-width:100%;width:max-content;line-height:0;box-shadow:0 12px 36px #0009;border:1px solid #60758a;touch-action:none;user-select:none}#cropImage{display:block;max-width:100%;max-height:69vh;width:auto;height:auto;pointer-events:none}#cropOverlay{position:absolute;left:0;top:0;width:100%;height:100%;touch-action:none;cursor:crosshair}.cropRect{fill:#4fc3ff1a;stroke:#00a4ff;stroke-width:3;vector-effect:non-scaling-stroke}.cropRectSelected{stroke:#ffba4a;fill:#ffba4a20}.cropIndex{fill:#08385b;stroke:#fff;stroke-width:1;pointer-events:none}.cropLabel{fill:white;pointer-events:none;font-size:23px;font-weight:800;text-anchor:middle;dominant-baseline:central}.cropRectTemp{fill:#62d4fa1c;stroke:#7ae6ff;stroke-width:2;stroke-dasharray:8 6;vector-effect:non-scaling-stroke}#cropGuide{text-align:center;color:var(--muted);padding:8px}
-#stripOuter{margin:0 auto;max-width:760px;border-radius:12px;overflow:hidden;box-shadow:0 15px 35px #0008;background:#111}#strip{background:#fff;min-height:500px; padding:0; overflow:hidden} .panelShell{position:relative;padding-top:var(--gap,22px);width:100%;min-height:20px;box-sizing:border-box} .panelCard{position:relative;overflow:hidden;background:white;container-type:inline-size;box-shadow:0 0 0 1px #9995;touch-action:pan-y} .panelCard.selected{outline:3px solid #0d98e7;outline-offset:-3px}.panelBackground{display:block;width:100%;height:auto}.panelForeground{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}.panelName{position:absolute;left:5px;top:5px;background:#066caacc;color:white;font:11px/1.3 sans-serif;padding:4px 6px;border-radius:6px;pointer-events:none}.balloon{position:absolute;background:white;border:2px solid #161616;color:#090909; border-radius:49% 52% 48% 51% / 52% 50% 47% 52%;display:flex;justify-content:center;align-items:center;text-align:center;padding:5px;user-select:none;touch-action:none;overflow:hidden;cursor:move}.balloon.selectedBalloon{box-shadow:0 0 0 3px #2ba1ff,0 0 0 4px white}.balloonText{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.35;width:100%;pointer-events:none}.panelBottom{color:#a3b7cc;font-size:11px;padding:5px 2px}.panelUnit{margin:0 auto 0;position:relative}.panelUnit:hover .panelName{opacity:1}.emptyStage{padding:85px 10px;text-align:center;color:#9cb2c6}
+#stripOuter{margin:0 auto;max-width:760px;border-radius:12px;overflow:hidden;box-shadow:0 15px 35px #0008;background:#fff}#strip{background:#fff;min-height:500px; padding:0; overflow:hidden} .panelShell{position:relative;padding-top:var(--gap,22px);width:100%;min-height:20px;box-sizing:border-box} .panelCard{position:relative;overflow:hidden;background:white;container-type:inline-size;box-shadow:none;touch-action:pan-y} .panelCard.selected{outline:3px solid #0d98e7;outline-offset:-3px}.panelBackground{display:block;width:100%;height:auto}.panelForeground{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}.panelName{position:absolute;left:5px;top:5px;background:#066caacc;color:white;font:11px/1.3 sans-serif;padding:4px 6px;border-radius:6px;pointer-events:none}.balloon{position:absolute;background:white;border:2px solid #161616;color:#090909; border-radius:49% 52% 48% 51% / 52% 50% 47% 52%;display:flex;justify-content:center;align-items:center;text-align:center;padding:5px;user-select:none;touch-action:none;overflow:hidden;cursor:move}.balloon.selectedBalloon{box-shadow:0 0 0 3px #2ba1ff,0 0 0 4px white}.balloonText{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.35;width:100%;pointer-events:none}.panelBottom{color:#a3b7cc;font-size:11px;padding:5px 2px}.panelUnit{margin:0 auto 0;position:relative}.panelUnit:hover .panelName{opacity:1}.emptyStage{padding:85px 10px;text-align:center;color:#9cb2c6}
 #previewShell{max-width:450px;margin:auto;background:#121922;border:8px solid #26384c;border-radius:32px;padding:12px 8px;box-shadow:0 17px 50px #0008}#previewViewport{background:white;max-height:70vh;min-height:470px;overflow-y:auto;overscroll-behavior:contain;border-radius:13px;scrollbar-width:thin;position:relative}#previewViewport .panelCard{box-shadow:none}#previewViewport .panelName{display:none}.quickNav{position:sticky;bottom:12px;display:flex;justify-content:center;pointer-events:none}.quickNav button{pointer-events:auto}
 #panelList{display:grid;gap:5px;max-height:300px;overflow:auto}.panelListItem{text-align:left;justify-content:space-between;padding:8px 9px;width:100%;white-space:normal}.panelListItem.selectedEntry{border-color:#57c3ff;background:#263e55}.panelToolsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.full{width:100%}.settingsValue{color:var(--accent);float:right;font-weight:750}.editRule{font-size:11px;color:#b4cadc;border-left:3px solid #5eaff6;padding-left:9px}
 #modalBackdrop{position:fixed;inset:0;background:#020810c9;z-index:100;display:none;align-items:center;justify-content:center;padding:14px}#modalBackdrop.show{display:flex}.modal{background:#162335;border:1px solid #55718b;box-shadow:0 30px 90px #000b;border-radius:17px;width:min(100%,990px);max-height:95dvh;overflow:auto;padding:16px}.modal h2{margin-bottom:5px}.modalCanvasWrap{background:#e4e8ee;position:relative;line-height:0;margin:10px auto;width:max-content;max-width:100%;touch-action:none;border:1px solid #7287a4}#repairBase,#repairOverlay,#sketchCanvas{display:block;max-width:100%;max-height:62vh;touch-action:none}#repairOverlay{position:absolute;inset:0;width:100%;height:100%}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,30px);opacity:0;background:#12334f;border:1px solid #5b9ed1;border-radius:12px;padding:10px 16px;z-index:300;transition:.2s;pointer-events:none;box-shadow:0 5px 20px #0009;text-align:center;max-width:92vw}.toast.show{opacity:1;transform:translate(-50%,0)}
@@ -22,7 +22,7 @@ button,.btnlike{border:1px solid var(--border);background:#263447;color:var(--te
 .file-hidden-accessible{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;padding:0}
 label.btnlike{cursor:pointer;text-decoration:none}
 
-/* v0.1.3: Each desktop editor column scrolls independently. The header is not in the scroll context. */
+/* v0.1.6: Each desktop editor column scrolls independently. The header is not in the scroll context. */
 @media (min-width:791px){
   html,body{height:100%;overflow:hidden}
   #layout{height:calc(100dvh - var(--top-area-height,93px));min-height:0;overflow:hidden}
@@ -38,11 +38,22 @@ label.btnlike{cursor:pointer;text-decoration:none}
 .fontSample{background:#fff;color:#111;padding:9px;border-radius:8px;text-align:center;font-size:18px;line-height:1.45;margin:7px 0 0}
 @media(max-width:790px){#work.mobileHide{display:none}}
 
+/* v0.1.6 — freely editable whitespace: these grips are editor-only and are not exported. */
+.gapHandle{position:absolute;z-index:11;left:50%;top:max(0px, calc(var(--gap,0px) - 16px));transform:translate(-50%,-50%);max-width:98%;border:1px solid #8dbbd7;background:#1a3b53f0;color:#e9f6ff;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:700;white-space:nowrap;cursor:ns-resize;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 2px 8px #0006;line-height:1.5}
+.gapHandle:focus-visible{outline:3px solid #fbbf67;outline-offset:2px}
+.gapHandle.dragging{background:#125b84;border-color:#6fd3ff}
+.gapHandle[data-empty="true"]{opacity:.75;top:0}
+.gapInputBar{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:5px;align-items:center}
+.gapInputBar button{padding:8px 9px}
+.gapPresets{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0 0}
+.gapPresets button{padding:5px 9px;font-size:11px}
+.gapHint{margin:7px 0;color:#adccdf;font-size:11px;line-height:1.55}
+
 </style>
 </head>
 <body>
 <header>
- <div class="mark">◩ <span>WEBTOON</span> STUDIO <span style="font-size:11px;font-weight:450;color:#9bb5c8">v0.1.4</span></div>
+ <div class="mark">◩ <span>WEBTOON</span> STUDIO <span style="font-size:11px;font-weight:450;color:#9bb5c8">v0.1.6</span></div>
  <input id="projectTitle" type="text" value="新しいWebtoon" aria-label="作品名">
  <div class="headerActions">
   <button id="sampleBtn" title="デモ画像で編集操作を試す">試してみる</button>
@@ -71,14 +82,14 @@ label.btnlike{cursor:pointer;text-decoration:none}
   <div class="section"><h3>原稿一覧</h3><div id="pageList" class="stack"><div class="hint">原稿はまだありません。</div></div></div>
   <div class="section" id="globalAppearance"><h3>全コマ共通の仕上げ</h3>
 <label class="label" for="globalFrameMode">枠線の統一</label>
-<select id="globalFrameMode"><option value="on">全コマの四辺を囲む</option><option value="off">追加の枠線を付けない</option></select>
+<select id="globalFrameMode"><option value="on">全コマの四辺を囲む</option><option value="off">追加枠線を表示しない（影も非表示）</option></select>
 <label class="label" for="globalFramePx">枠線の太さ <span id="globalFramePxVal" class="settingsValue">3px</span></label>
 <input id="globalFramePx" type="range" min="1" max="12" value="3" step="1">
 <label class="label" for="globalFontFamily">セリフの基本フォント</label>
 <select id="globalFontFamily"><option value="antique">漫画アンチック風（Webフォント）</option><option value="iwata">イワタアンチック（端末にある場合）</option><option value="mincho">明朝</option><option value="gothic">ゴシック</option></select>
 <p class="hint">枠線は画像の上に一定の太さで描きます。元画像に描いてある線はそのまま残ります。</p>
 </div>
-<div class="section"><h3>セリフ素材 <span id="quoteCount" class="tag">0個</span></h3><select id="quoteSelect"><option value="">取り込んだセリフはありません</option></select><p class="hint">改行は同じ吹き出し内の行、<b>空行は次の吹き出しとの区切り</b>です。選択肢は吹き出し単位で表示します。コマとの自動対応は未実装です。</p></div>
+<div class="section"><h3>セリフ素材 <span id="quoteCount" class="tag">0個</span></h3><select id="quoteSelect"><option value="">取り込んだセリフはありません</option></select><p class="hint">改行は同じ吹き出し、<b>空行が次の吹き出しの区切り</b>です。先頭の <b>A1・A002</b> などの管理番号は読み込み時に自動除外します。コマとの自動対応は未実装です。</p></div>
  </aside>
  <main id="work">
   <div class="workTitle"><h2 id="screenTitle">1. 原稿・コマ分割</h2><span id="screenStatus" class="tag">まず画像を読み込む</span></div>
@@ -111,7 +122,7 @@ const FONT_CSS={
   mincho:'Hiragino Mincho ProN,Yu Mincho,serif',
   gothic:'Hiragino Kaku Gothic ProN,Yu Gothic,sans-serif'
 };
-function ensureSettings(){project.settings=Object.assign({frameMode:'on',framePx:3,fontFamily:'antique'},project.settings||{});for(const panel of project.panels||[]){panel.frameMode=panel.frameMode||'inherit';panel.edgeTrim=Number(panel.edgeTrim||0);for(const bubble of panel.balloons||[])bubble.fontFamily=bubble.fontFamily||'inherit'}}
+function ensureSettings(){project.settings=Object.assign({frameMode:'on',framePx:3,fontFamily:'antique'},project.settings||{});for(const panel of project.panels||[]){panel.gap=Number.isFinite(Number(panel.gap))?Math.max(0,Math.min(100000,Math.round(Number(panel.gap)))):28;panel.frameMode=panel.frameMode||'inherit';panel.edgeTrim=Number(panel.edgeTrim||0);for(const bubble of panel.balloons||[])bubble.fontFamily=bubble.fontFamily||'inherit'}}
 function effectiveFrame(p){return (p.frameMode||'inherit')==='inherit' ? project.settings.frameMode : p.frameMode}
 function framePx(p){return effectiveFrame(p)==='on'?Number(project.settings.framePx||3):0}
 function fontCssFor(b){return FONT_CSS[b?.fontFamily&&b.fontFamily!=='inherit'?b.fontFamily:project.settings.fontFamily]||FONT_CSS.antique}
@@ -151,8 +162,53 @@ const boxes=[];function visit(b,depth){if(depth>=7||boxes.length>28||b.w<45||b.h
 let rs=boxes.filter(b=>b.w>=45&&b.h>=45&&b.w*b.h>13000).map(b=>({x:Math.round(b.x/scale),y:Math.round(b.y/scale),w:Math.round(b.w/scale),h:Math.round(b.h/scale)}));if(rs.length<2||rs.length>28){notify('自動分割できませんでした。手動で囲んでください');return}rs.sort((a,b)=>{let ya=a.y+a.h/2,yb=b.y+b.h/2;if(Math.abs(ya-yb)>Math.min(a.h,b.h)*.38)return ya-yb;return b.x-a.x});ui.rects=rs;ui.selectedRect=-1;drawCropRects();notify(rs.length+'個の候補を表示。誤認識した枠は削除してください')}
 function renderCompose(){const root=$('#workspace');root.innerHTML=`<div class="row between" style="margin-bottom:10px"><div class="row"><button id="addBlank">＋ 空白コマ</button><button id="addImagePanel">＋ 画像コマ</button><button id="goCrop">原稿から切り出す</button></div><span class="hint">コマを選び、右側で幅・位置・余白を編集</span></div><div id="stripOuter"><div id="strip"></div></div>`;renderStrip($('#strip'),true);}
 function bubbleHTML(b,interactive){return `<div class="balloon ${ui.balloonId===b.id&&interactive?'selectedBalloon':''}" data-balloon="${b.id}" style="left:${b.x}%;top:${b.y}%;width:${b.w}%;height:${b.h}%;${interactive?'':'cursor:default;'}"><div class="balloonText" style="font-family:${fontCssFor(b)};font-size:${b.font}px;font-size:${(b.font*100/650).toFixed(3)}cqw;${b.vertical?'writing-mode:vertical-rl;':''}">${esc(b.text)}</div></div>`}
-function panelHTML(p,interactive=false){const canMotion=!!(p.bgSrc&&p.fgSrc&&p.motion.mode==='parallax');return `<div class="panelShell" data-shell="${p.id}" style="--gap:${p.gap}px"><div class="panelUnit" style="width:${p.width}%;margin-left:${(100-p.width)*p.align/100}%"><div class="panelCard ${interactive&&p.id===ui.panelId?'selected':''}" data-panel="${p.id}" style="aspect-ratio:${p.ratio};--frame-px:${framePx(p)}px;--edge-trim:${Number(p.edgeTrim||0)}"><img draggable="false" class="panelBackground" src="${p.bgSrc||p.src}" alt="${esc(p.name)}" style="width:100%;height:100%;object-fit:fill"><img draggable="false" class="panelForeground" src="${p.fgSrc||''}" style="${p.fgSrc?'':'display:none'}"><span class="edgeMask" aria-hidden="true"></span><div class="bubbleLayer" style="position:absolute;inset:0">${p.balloons.map(b=>bubbleHTML(b,interactive)).join('')}</div>${interactive?`<span class="panelName">${esc(p.name)}${canMotion?' · 2層演出':''}</span>`:''}</div></div></div>`}
-function renderStrip(el,interactive){if(!project.panels.length){el.innerHTML='<div class="emptyStage">まだコマがありません。<br>まず「1. 原稿・コマ分割」からコマを切り出してください。</div>';return}el.innerHTML=project.panels.map(p=>panelHTML(p,interactive)).join('');if(interactive){el.querySelectorAll('.panelCard').forEach(card=>card.addEventListener('click',e=>{if(e.target.closest('.balloon'))return;ui.panelId=card.dataset.panel;ui.balloonId=null;renderInspector();el.querySelectorAll('.panelCard').forEach(c=>c.classList.toggle('selected',c.dataset.panel===ui.panelId));el.querySelectorAll('.balloon').forEach(b=>b.classList.remove('selectedBalloon'))}));bindBalloonDrag(el)}}
+function panelHTML(p,interactive=false){const canMotion=!!(p.bgSrc&&p.fgSrc&&p.motion.mode==='parallax');return `<div class="panelShell" data-shell="${p.id}" style="--gap:${p.gap}px">${interactive?`<button class="gapHandle" data-gap-id="${p.id}" data-empty="${p.gap===0?'true':'false'}" title="指で上下に動かして余白を変更（キーボードの上下キーでも操作可能）" type="button" aria-label="${esc(p.name)} の上の余白をドラッグして編集">↕ 余白 ${p.gap}px</button>`:''}<div class="panelUnit" style="width:${p.width}%;margin-left:${(100-p.width)*p.align/100}%"><div class="panelCard ${interactive&&p.id===ui.panelId?'selected':''}" data-panel="${p.id}" style="aspect-ratio:${p.ratio};--frame-px:${framePx(p)}px;--edge-trim:${Number(p.edgeTrim||0)}"><img draggable="false" class="panelBackground" src="${p.bgSrc||p.src}" alt="${esc(p.name)}" style="width:100%;height:100%;object-fit:fill"><img draggable="false" class="panelForeground" src="${p.fgSrc||''}" style="${p.fgSrc?'':'display:none'}"><span class="edgeMask" aria-hidden="true"></span><div class="bubbleLayer" style="position:absolute;inset:0">${p.balloons.map(b=>bubbleHTML(b,interactive)).join('')}</div>${interactive?`<span class="panelName">${esc(p.name)}${canMotion?' · 2層演出':''}</span>`:''}</div></div></div>`}
+function renderStrip(el,interactive){if(!project.panels.length){el.innerHTML='<div class="emptyStage">まだコマがありません。<br>まず「1. 原稿・コマ分割」からコマを切り出してください。</div>';return}el.innerHTML=project.panels.map(p=>panelHTML(p,interactive)).join('');if(interactive){el.querySelectorAll('.panelCard').forEach(card=>card.addEventListener('click',e=>{if(e.target.closest('.balloon'))return;ui.panelId=card.dataset.panel;ui.balloonId=null;renderInspector();el.querySelectorAll('.panelCard').forEach(c=>c.classList.toggle('selected',c.dataset.panel===ui.panelId));el.querySelectorAll('.balloon').forEach(b=>b.classList.remove('selectedBalloon'))}));bindBalloonDrag(el);bindGapHandles(el)}}
+function setPanelGap(p,value,rerender=true){
+ const num=Number(value);if(!Number.isFinite(num))return;
+ p.gap=Math.max(0,Math.min(100000,Math.round(num)));
+ const el=$('#gapNumber'),slider=$('#gapRange'),val=$('#gapVal');
+ if(el&&ui.panelId===p.id)el.value=p.gap;
+ if(slider&&ui.panelId===p.id){slider.max=Math.max(1200,Math.ceil(p.gap/100)*100);slider.value=p.gap;}
+ if(val&&ui.panelId===p.id)val.textContent=p.gap+'px';
+ if(rerender)patchPanelDOM();
+}
+function bindGapHandles(container){
+ for(const handle of container.querySelectorAll('.gapHandle')){
+  let drag=null;
+  const p=project.panels.find(x=>x.id===handle.dataset.gapId);if(!p)continue;
+  handle.addEventListener('pointerdown',e=>{
+   e.preventDefault();e.stopPropagation();
+   ui.panelId=p.id;ui.balloonId=null;
+   container.querySelectorAll('.panelCard').forEach(c=>c.classList.toggle('selected',c.dataset.panel===p.id));
+   renderInspector();
+   drag={startY:e.clientY,startGap:p.gap};handle.classList.add('dragging');
+   // Some iOS/WebView environments do not permit pointer capture. Use document listeners as fallback.
+   try{handle.setPointerCapture(e.pointerId)}catch(_err){}
+   document.addEventListener('pointermove',move,{passive:false});
+   document.addEventListener('pointerup',done);
+   document.addEventListener('pointercancel',done);
+  });
+  const move=e=>{
+   if(!drag)return;e.preventDefault();
+   setPanelGap(p,drag.startGap+e.clientY-drag.startY,false);
+   const shell=handle.closest('.panelShell');if(shell)shell.style.setProperty('--gap',p.gap+'px');
+   handle.textContent='↕ 余白 '+p.gap+'px';handle.dataset.empty=p.gap===0?'true':'false';
+  };
+  const done=()=>{
+   if(!drag)return;drag=null;
+   document.removeEventListener('pointermove',move);
+   document.removeEventListener('pointerup',done);
+   document.removeEventListener('pointercancel',done);
+   handle.classList.remove('dragging');patchPanelDOM();
+  };
+  handle.addEventListener('keydown',e=>{
+   if(!['ArrowUp','ArrowDown','PageUp','PageDown'].includes(e.key))return;
+   e.preventDefault();const unit=e.key.startsWith('Page')?100:10;
+   ui.panelId=p.id;setPanelGap(p,p.gap+(e.key.endsWith('Down')?unit:-unit));renderInspector();
+  });
+ }
+}
 function bindBalloonDrag(container){container.querySelectorAll('.balloon').forEach(el=>{let drag=null;el.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();const card=el.closest('.panelCard');ui.panelId=card.dataset.panel;ui.balloonId=el.dataset.balloon;const b=selectedBalloon();drag={x:e.clientX,y:e.clientY,ox:b.x,oy:b.y};el.setPointerCapture(e.pointerId);container.querySelectorAll('.balloon').forEach(x=>x.classList.toggle('selectedBalloon',x===el));renderInspector()});el.addEventListener('pointermove',e=>{if(!drag)return;const r=el.closest('.panelCard').getBoundingClientRect(),b=selectedBalloon();if(!b)return;b.x=clamp(drag.ox+(e.clientX-drag.x)/r.width*100,0,100-b.w);b.y=clamp(drag.oy+(e.clientY-drag.y)/r.height*100,0,100-b.h);el.style.left=b.x+'%';el.style.top=b.y+'%'});el.addEventListener('pointerup',()=>{drag=null;renderInspector()});el.addEventListener('pointercancel',()=>{drag=null})})}
 function renderPreview(){const root=$('#workspace');root.innerHTML=`<div class="row between" style="margin-bottom:10px"><span class="hint">スマホ表示の確認。2層演出が設定されたコマはスクロール位置に連動して動きます。</span><button id="downloadStatic">縦長PNGを書き出す</button></div><div id="previewShell"><div id="previewViewport"><div id="previewContent"></div></div></div><div class="notice" style="max-width:450px;margin:12px auto">Webtoon HTMLを書き出すと、ブラウザで縦スクロールできます。CLIP STUDIOで仕上げる場合は「縦長PNG」を読み込めます。</div>`;renderStrip($('#previewContent'),false);attachMotion($('#previewViewport'),$('#previewContent'))}
 function attachMotion(scrollRoot,content){let busy=false;const update=()=>{busy=false;const bounds=scrollRoot.getBoundingClientRect();for(const card of content.querySelectorAll('.panelCard')){const p=project.panels.find(x=>x.id===card.dataset.panel);if(!p||p.motion.mode!=='parallax'||!p.bgSrc||!p.fgSrc)continue;const r=card.getBoundingClientRect(),progress=clamp((bounds.bottom-r.top)/(bounds.height+r.height),0,1),t=progress*2-1,m=p.motion;card.querySelector('.panelBackground').style.transform=`translateX(${t*m.bgX}%) scale(${1+(m.bgScale-1)*progress})`;card.querySelector('.panelForeground').style.transform=`translateX(${t*m.fgX}%) scale(${1+(m.fgScale-1)*progress})`;}};scrollRoot.addEventListener('scroll',()=>{if(!busy){busy=true;requestAnimationFrame(update)}},{passive:true});requestAnimationFrame(update)}
@@ -163,13 +219,17 @@ const i=project.panels.indexOf(p),b=selectedBalloon();box.innerHTML=`
 <div class="row" style="margin:9px 0"><button id="moveUp" class="tiny">↑ 前へ</button><button id="moveDown" class="tiny">↓ 後ろへ</button><button id="deletePanel" class="tiny danger">削除</button></div>
 <label class="label">コマ幅 <span class="settingsValue" id="widthVal">${p.width}%</span></label><input id="widthRange" type="range" min="40" max="100" value="${p.width}">
 <label class="label">横の位置 <span class="settingsValue" id="alignVal">${p.align}%</span></label><input id="alignRange" type="range" min="0" max="100" value="${p.align}">
-<label class="label">上の余白 <span class="settingsValue" id="gapVal">${p.gap}px</span></label><input id="gapRange" type="range" min="0" max="240" value="${p.gap}">
+<label class="label">上の余白 <span class="settingsValue" id="gapVal">${p.gap}px</span></label>
+<div class="gapInputBar"><input id="gapNumber" type="number" min="0" max="100000" step="10" inputmode="numeric" value="${p.gap}" aria-label="余白の高さ（px）"><button type="button" id="gapMinus" aria-label="余白を50px減らす">−50</button><button type="button" id="gapPlus" aria-label="余白を50px増やす">＋50</button></div>
+<input id="gapRange" type="range" min="0" max="${Math.max(1200,Math.ceil(p.gap/100)*100)}" step="10" value="${p.gap}" aria-label="余白をスライダーで調整">
+<div class="gapPresets"><button type="button" data-gap-preset="0">0</button><button type="button" data-gap-preset="80">80</button><button type="button" data-gap-preset="240">240</button><button type="button" data-gap-preset="500">500</button><button type="button" data-gap-preset="1000">1000</button><button type="button" data-gap-preset="2000">2000</button></div>
+<p class="gapHint">コマの上の白い空間です。数値欄は240pxを超えて入力できます（実用上100,000pxまで）。中央キャンバスでは「↕ 余白」を上下にドラッグして調整できます。</p>
 <div class="frameControl"><h3>コマの枠線</h3>
 <label class="label" for="panelFrameMode">このコマの枠線</label>
-<select id="panelFrameMode"><option value="inherit" ${(p.frameMode||'inherit')==='inherit'?'selected':''}>全コマ共通の設定に従う</option><option value="on" ${p.frameMode==='on'?'selected':''}>四辺を囲む</option><option value="off" ${p.frameMode==='off'?'selected':''}>追加の枠線なし</option></select>
-<label class="label" for="edgeTrim">元画像の端の線を白く隠す <span id="edgeTrimVal" class="settingsValue">${Number(p.edgeTrim||0).toFixed(1)}%</span></label>
-<input id="edgeTrim" type="range" min="0" max="4" step="0.25" value="${Number(p.edgeTrim||0)}">
-<div class="smallHint">枠線は拡大縮小しても共通の太さです。「端を隠す」は絵の端も白く覆います。内側に描かれた元の枠線は消えません。</div></div>
+<select id="panelFrameMode"><option value="inherit" ${(p.frameMode||'inherit')==='inherit'?'selected':''}>全コマ共通の設定に従う</option><option value="on" ${p.frameMode==='on'?'selected':''}>四辺を囲む</option><option value="off" ${p.frameMode==='off'?'selected':''}>枠線なし（アプリ追加分）</option></select>
+<label class="label" for="edgeTrim">元画像に描かれた外周線を白く隠す <span id="edgeTrimVal" class="settingsValue">${Number(p.edgeTrim||0).toFixed(1)}%</span></label>
+<input id="edgeTrim" type="range" min="0" max="8" step="0.25" value="${Number(p.edgeTrim||0)}">
+<div class="smallHint">枠線は拡大縮小しても共通の太さです。「端を隠す」は絵の端も白く覆います。内側に描かれた元の枠線は消えません。<b>青い選択線は編集中だけ表示し、完成作品には出力されません。</b></div></div>
 <div class="line"></div><h3>吹き出し・セリフ</h3>
 <div class="row"><button id="addBalloon" class="primary">＋ 吹き出し</button><button id="repairBtn">隠れた絵を補修</button></div>
 <div class="hint" style="margin:8px 0">吹き出しを直接ドラッグして位置を動かせます。下の絵は「補修」から簡易処理できます。</div>
@@ -193,12 +253,21 @@ function bindRange(id,obj,prop,suffix=''){const el=$('#'+id);if(!el)return;el.ad
 function bindInspector(e){const id=e.target.id;if(!id&&e.target.dataset.pickBalloon){ui.balloonId=e.target.dataset.pickBalloon;patchPanelDOM();patchInspector();return}
 const p=selectedPanel(),b=selectedBalloon();if(id==='cropMakeAlt'){addCropRects();return}if(id==='blankSide'){addBlank();return}if(id==='exportSide'){exportHTML();return}if(!p)return;
 if(id==='moveUp')reorder(-1);if(id==='moveDown')reorder(1);
+if(id==='gapMinus'){setPanelGap(p,p.gap-50);return}
+if(id==='gapPlus'){setPanelGap(p,p.gap+50);return}
+const preset=e.target.closest('[data-gap-preset]');if(preset){setPanelGap(p,Number(preset.dataset.gapPreset));return}
+
 if(id==='deletePanel'&&confirm('このコマを削除しますか？')){project.panels=project.panels.filter(x=>x.id!==p.id);ui.panelId=project.panels[0]?.id||null;ui.balloonId=null;render()}
 if(id==='addBalloon')addBubble();if(id==='repairBtn')openRepair();if(id==='selectBg')$('#fileBg').click();if(id==='selectFg')$('#fileFg').click();if(id==='sketchPanel')openSketch();if(id==='exportPanelPng')exportSelectedPanel();
 if(id==='deleteBalloon'&&b){p.balloons=p.balloons.filter(x=>x.id!==b.id);ui.balloonId=null;patchPanelDOM();patchInspector()}
 if(id==='horzText'&&b){b.vertical=false;patchPanelDOM();patchInspector()}if(id==='vertText'&&b){b.vertical=true;patchPanelDOM();patchInspector()}
 }
-function bindInspectorChanges(e){const p=selectedPanel(),b=selectedBalloon(),id=e.target.id;if(!p)return;const map={widthRange:['width','widthVal','%'],alignRange:['align','alignVal','%'],gapRange:['gap','gapVal','px']};if(map[id]){let [prop,lab,unit]=map[id];p[prop]=Number(e.target.value);$('#'+lab).textContent=p[prop]+unit;patchPanelDOM();return}
+function bindInspectorChanges(e){const p=selectedPanel(),b=selectedBalloon(),id=e.target.id;if(!p)return;if(id==='gapRange'||id==='gapNumber'){
+ // Ignore temporarily empty numbers while the user is typing.
+ if(e.target.value==='')return;
+ setPanelGap(p,e.target.value);return;
+}
+const map={widthRange:['width','widthVal','%'],alignRange:['align','alignVal','%']};if(map[id]){let [prop,lab,unit]=map[id];p[prop]=Number(e.target.value);$('#'+lab).textContent=p[prop]+unit;patchPanelDOM();return}
 if(id==='panelFrameMode'){p.frameMode=e.target.value;patchPanelDOM();return}
 if(id==='edgeTrim'){p.edgeTrim=Number(e.target.value);$('#edgeTrimVal').textContent=p.edgeTrim.toFixed(1)+'%';patchPanelDOM();return}
 if(id==='bubbleFontFamily'&&b){b.fontFamily=e.target.value;patchPanelDOM();return}
@@ -225,25 +294,43 @@ function minimalHTML(){const title=esc(project.title),blocks=project.panels.map(
 function exportHTML(){if(!project.panels.length){notify('先にコマを追加してください');return}const page=minimalHTML();downloadBlob(safeName(project.title)+'_Webtoon.html',new Blob([page],{type:'text/html;charset=utf-8'}));notify('Webtoon HTMLを書き出しました')}
 function saveProject(){project.title=$('#projectTitle').value;downloadBlob(safeName(project.title)+'_編集データ.json',new Blob([JSON.stringify({schema:'webtoon-studio-v0.1',project})],{type:'application/json'}));notify('再編集用データを保存しました')}
 async function importProject(file){try{const json=JSON.parse(await file.text());if(json.schema!=='webtoon-studio-v0.1'||!json.project?.panels)throw Error('形式が違います');project=json.project;ensureSettings();$('#projectTitle').value=project.title;ui.pageId=project.pages[0]?.id||null;ui.panelId=project.panels[0]?.id||null;ui.balloonId=null;ui.rects=[];setTab('compose');notify('編集データを読み込みました')}catch(err){notify('編集データを読み込めません: '+err.message)}}
-/* One non-empty block = one speech balloon. Line breaks within a block are retained. */
-function parseQuoteBlocks(text){
-  const normalized=String(text||'').replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n');
-  // Compatibility with the CLIP extraction report distributed with v0.1.3.
+/* v0.1.6: One blank-line-separated block = one balloon. Remove non-dialogue A-number labels only at the start of a block. */
+function isQuoteLabelLine(line){
+  // E.g. A1, A002, Ａ１２, [A12], 【A12】. Never touch ordinary text such as "A4サイズ".
+  return /^[ \t\u3000]*(?:\[|【|\(|（)?[AaＡａ][ \t\u3000]*[-_－]?[ \t\u3000]*[0-9０-９]{1,6}[ \t\u3000]*(?:\]|】|\)|）)?[ \t\u3000]*$/.test(line);
+}
+function removeQuoteLabelPrefix(line){
+  // E.g. "A12：こんにちは", "[A12]: こんにちは". Require punctuation to protect real dialogue.
+  return line.replace(/^[ \t\u3000]*(?:\[|【|\(|（)?[AaＡａ][ \t\u3000]*[-_－]?[ \t\u3000]*[0-9０-９]{1,6}[ \t\u3000]*(?:\]|】|\)|）)?[ \t\u3000]*[：:．.、－-][ \t\u3000]*/, '');
+}
+function cleanQuoteBlock(block,stripLabels=true){
+  let lines=String(block).split('\n').map(line=>line.trim()).filter(Boolean);
+  if(stripLabels){
+    // Metadata may be its own line above the speech; discard only consecutive leading labels.
+    while(lines.length&&isQuoteLabelLine(lines[0]))lines.shift();
+    if(lines.length)lines[0]=removeQuoteLabelPrefix(lines[0]).trim();
+  }
+  return lines.filter(Boolean).join('\n');
+}
+function parseQuoteBlocks(text,stripLabels=true){
+  const normalized=String(text||'').replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n').replace(/\u200B/g,'');
+  // The older CLIP extraction report contains original text and "横書き案" lines.
+  // Its "横書き案" entries alone are the speech; ignore the report heading and layer IDs.
   const legacy=Array.from(normalized.matchAll(/^\s*横書き案[：:]\s*(.+)$/gm),m=>m[1].trim()).filter(Boolean);
-  if(legacy.length)return legacy;
+  if(legacy.length)return legacy.map(block=>cleanQuoteBlock(block,stripLabels)).filter(Boolean);
   return normalized.split(/\n(?:[ \t\u3000]*\n)+/)
-    .map(block=>block.split('\n').map(line=>line.trim()).filter(Boolean).join('\n'))
+    .map(block=>cleanQuoteBlock(block,stripLabels))
     .filter(Boolean);
 }
-function applyQuoteBlocks(text,append=false){
-  const blocks=parseQuoteBlocks(text);
+function applyQuoteBlocks(text,append=false,stripLabels=true){
+  const blocks=parseQuoteBlocks(text,stripLabels);
   if(!blocks.length){notify('セリフが見つかりませんでした');return false}
   if(append)project.quotes=[...project.quotes,...blocks];else project.quotes=blocks;
   renderLeft();
   // Select the imported block so the next "＋ 吹き出し" uses it.
   const start=append?project.quotes.length-blocks.length:0;
   $('#quoteSelect').value=String(start);
-  notify(blocks.length+'個の吹き出し用セリフを読み込みました');
+  notify(blocks.length+'個のセリフを読み込みました（A＋数字の管理番号は除外）');
   return true;
 }
 async function importQuotes(file){
@@ -252,11 +339,14 @@ async function importQuotes(file){
 function openQuotePaste(){
   showModal(`<div class="row between"><h2>吹き出し単位でセリフを登録</h2><button id="closeModal">閉じる</button></div>
   <div class="notice" style="margin:10px 0">普通の改行は<b>同じ吹き出し</b>。1行以上の<b>空行で次の吹き出し</b>に切り替わります。内部の改行も保存されます。</div>
+  <label style="display:flex;align-items:center;gap:8px;margin:8px 0 12px"><input id="quotePasteStrip" type="checkbox" checked> <span>セリフ冒頭の管理番号（A1 / A002 など）を除外</span></label>
   <textarea id="quotePasteText" rows="11" style="width:100%;min-height:240px" placeholder="今日は\nいい天気ですね\n\nそうですね\nお出かけしましょう"></textarea>
   <div id="quotePasteCount" class="hint" style="margin:8px 0">0個の吹き出し</div>
   <div class="row"><button id="quotePasteAdd" class="primary">セリフ素材として追加する</button><button id="quotePasteReplace">すべて置き換える</button></div>
   <p class="hint">すでに配置済みの吹き出しの文章は変更されません。素材リストに登録する機能です。</p>`);
-  $('#quotePasteText').addEventListener('input',e=>{$('#quotePasteCount').textContent=parseQuoteBlocks(e.target.value).length+'個の吹き出し'});
+  const refreshQuotePreview=()=>{$('#quotePasteCount').textContent=parseQuoteBlocks($('#quotePasteText').value,$('#quotePasteStrip').checked).length+'個の吹き出し'};
+  $('#quotePasteText').addEventListener('input',refreshQuotePreview);
+  $('#quotePasteStrip').addEventListener('change',refreshQuotePreview);
 }
 
 async function loadSample(){if(project.pages.length||project.panels.length){if(!confirm('サンプルを開くと現在の編集内容が置き換わります。続けますか？'))return}project={title:'Webtoon デモ',pages:[],panels:[],quotes:[...SAMPLE_QUOTES],settings:{frameMode:'on',framePx:3,fontFamily:'antique'}};$('#projectTitle').value=project.title;const src=SAMPLE_DATA;const im=await imageLoad(src);const p={id:uid(),name:'デモ画像',src,w:im.width,h:im.height};project.pages.push(p);ui.pageId=p.id;ui.panelId=null;ui.balloonId=null;ui.rects=[];ui.selectedRect=-1;setTab('crop');notify('デモ画像を開きました。枠を囲んでコマに追加できます')}
@@ -282,7 +372,7 @@ $('#inspector').addEventListener('change',bindInspectorChanges);
 $('#globalAppearance').addEventListener('input',updateAllAppearance);
 $('#globalAppearance').addEventListener('change',updateAllAppearance);
 window.addEventListener('resize',setViewportColumnsHeight,{passive:true});
-$('#modalBackdrop').addEventListener('click',e=>{if(e.target.id==='quotePasteAdd'||e.target.id==='quotePasteReplace'){const append=e.target.id==='quotePasteAdd',raw=$('#quotePasteText')?.value||'';if(applyQuoteBlocks(raw,append))closeModal()}});
+$('#modalBackdrop').addEventListener('click',e=>{if(e.target.id==='quotePasteAdd'||e.target.id==='quotePasteReplace'){const append=e.target.id==='quotePasteAdd',raw=$('#quotePasteText')?.value||'';if(applyQuoteBlocks(raw,append,$('#quotePasteStrip')?.checked!==false))closeModal()}});
 $('#modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop'||e.target.id==='closeModal')closeModal()});
 $('#modalBackdrop').addEventListener('click',e=>{const id=e.target.id;if(!id)return;if(id==='sketchPen'||id==='sketchEraser'){if(!sketchState)return;sketchState.mode=id==='sketchPen'?'pen':'eraser';$('#sketchPen')?.classList.toggle('active',id==='sketchPen');$('#sketchEraser')?.classList.toggle('active',id==='sketchEraser')};if(id==='sketchUndo'&&sketchState?.history?.length)sketchState.ctx.putImageData(sketchState.history.pop(),0,0);if(id==='sketchApply'&&sketchState){sketchState.p.src=sketchState.canvas.toDataURL('image/png');sketchState.p.bgSrc=null;sketchState.p.fgSrc=null;sketchState.p.motion.mode='none';closeModal();render();notify('手描き内容を採用しました')};if(id==='repairClear'&&repairState){repairState.mask.fill(0);repairState.overlay.getContext('2d').clearRect(0,0,repairState.w,repairState.h)};if(id==='repairApply')applyRepair()});
 render();
