@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Webtoon Studio – iOS 公開用 v0.1.9</title>
+<title>Webtoon Studio – iOS 公開用 v0.2.0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Zen+Antique+Soft&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0d131d;--surface:#151e2b;--surface2:#202c3a;--border:#314055;--text:#eaf1f9;--muted:#9eafc3;--accent:#61b9ff;--pink:#f7aa8c;--green:#70d3ae}
@@ -38,7 +38,7 @@ label.btnlike{cursor:pointer;text-decoration:none}
 .fontSample{background:#fff;color:#111;padding:9px;border-radius:8px;text-align:center;font-size:18px;line-height:1.45;margin:7px 0 0}
 @media(max-width:790px){#work.mobileHide{display:none}}
 
-/* v0.1.9 — freely editable whitespace: these grips are editor-only and are not exported. */
+/* v0.2.0 — freely editable whitespace: these grips are editor-only and are not exported. */
 .gapHandle{position:absolute;z-index:11;left:50%;top:max(0px, calc(var(--gap,0px) - 16px));transform:translate(-50%,-50%);max-width:98%;border:1px solid #8dbbd7;background:#1a3b53f0;color:#e9f6ff;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:700;white-space:nowrap;cursor:ns-resize;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 2px 8px #0006;line-height:1.5}
 .gapHandle:focus-visible{outline:3px solid #fbbf67;outline-offset:2px}
 .gapHandle.dragging{background:#125b84;border-color:#6fd3ff}
@@ -50,7 +50,7 @@ label.btnlike{cursor:pointer;text-decoration:none}
 .gapHint{margin:7px 0;color:#adccdf;font-size:11px;line-height:1.55}
 
 
-/* v0.1.9 – Motion candidate tagging; export metadata, no embedded artwork on GitHub. */
+/* v0.2.0 – Motion candidate tagging; export metadata, no embedded artwork on GitHub. */
 .videoBadge{position:absolute;right:7px;top:7px;z-index:9;pointer-events:none;padding:4px 7px;border-radius:8px;background:#aa3a31ed;color:#fff;font:700 12px/1.3 sans-serif;letter-spacing:.02em}
 .videoTag{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;background:#502e31;color:#ffdad6;font-size:12px}
 .videoSelected{outline:2px solid #ffb0a1;outline-offset:-2px}
@@ -64,7 +64,7 @@ label.btnlike{cursor:pointer;text-decoration:none}
 </head>
 <body>
 <header>
- <div class="mark">◩ <span>WEBTOON</span> STUDIO <span style="font-size:11px;font-weight:450;color:#9bb5c8">v0.1.9</span></div>
+ <div class="mark">◩ <span>WEBTOON</span> STUDIO <span style="font-size:11px;font-weight:450;color:#9bb5c8">v0.2.0</span></div>
  <input id="projectTitle" type="text" value="新しいWebtoon" aria-label="作品名">
  <div class="headerActions">
   <button id="sampleBtn" title="デモ画像で編集操作を試す">試してみる</button>
@@ -336,7 +336,7 @@ function buildVideoMap(){
       suggestedVideoFilename:'panel_'+p.id+'.mp4'};
    y+=heightPx;return entry;
  });
- return {schema:'webtoon-video-map-v1',sourceApp:'Webtoon Studio v0.1.9',
+ return {schema:'webtoon-video-map-v1',sourceApp:'Webtoon Studio v0.2.0',
   title:project.title,referenceImage:{widthPx:canvasWidth,heightPx:y,
    note:'Positions match the unmodified static PNG exported by Webtoon Studio at 1000px width. If you rearrange the artwork in CLIP STUDIO, re-align slots in Builder.'},
   slots:panels.filter(p=>p.videoPlanned),panels,
@@ -527,5 +527,263 @@ opt();render();
 })();
 </script>
 
+<script id="webtoon-v020-safety">
+/* Webtoon Studio v0.2.0 – non-destructive editing and Safari export safety */
+(function(){
+  'use strict';
+  const safetyCSS = document.createElement('style');
+  safetyCSS.textContent = `
+    #work{overflow-anchor:none!important;overscroll-behavior:contain}
+    #strip,#stripOuter{overflow-anchor:none!important}
+    .wt-shape{color:#111!important;opacity:1!important;-webkit-text-fill-color:#111}
+    .wt-shape>span:not(.wt-tail){color:#111!important;opacity:1!important;-webkit-text-fill-color:#111!important;text-shadow:none!important}
+    .balloonText{color:#111!important;opacity:1!important;-webkit-text-fill-color:#111!important}
+    #safetyStatus{font-size:11px;color:#a8deba;display:inline-flex;align-items:center;white-space:nowrap;gap:4px}
+    #safetyRestoreBtn{font-size:11px;padding:6px 9px;background:#233f46;border-color:#4c7c86}
+    #safeExportLayer{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.77);display:flex;align-items:center;justify-content:center;padding:14px}
+    #safeExportLayer .safeCard{background:#1b2b3a;color:#eaf1f9;border:1px solid #53728f;padding:18px;border-radius:15px;max-width:480px;width:100%;box-shadow:0 16px 50px #0009}
+    #safeExportLayer h2{font-size:18px;margin:0 0 10px}
+    #safeExportLayer p{font-size:13px;line-height:1.6;margin:7px 0;color:#c4d9ea}
+    #safeExportLayer .safeBtns{display:flex;flex-direction:column;gap:9px;margin-top:13px}
+    #safeExportLayer button{width:100%;white-space:normal}
+    #safeExportLayer .safeFine{font-size:11px;color:#a7bdcf}
+    @media(max-width:960px){#safetyStatus{order:4}}
+  `;
+  document.head.appendChild(safetyCSS);
+
+  // v0.1.9 redraws the entire strip after every slider step. Preserve scrollTop
+  // and prevent the temporary content-height collapse from clamping the scroller.
+  const oldPatchPanelDOM = patchPanelDOM;
+  patchPanelDOM = function(){
+    const scroller=document.querySelector('#work');
+    const strip=document.querySelector('#strip');
+    if(!scroller||!strip){oldPatchPanelDOM();scheduleSafetySave();return;}
+    const y=scroller.scrollTop;
+    const h=strip.getBoundingClientRect().height;
+    const oldMin=strip.style.minHeight;
+    strip.style.minHeight=h+'px';
+    oldPatchPanelDOM();
+    scroller.scrollTop=y;
+    requestAnimationFrame(()=>{
+      if(!document.contains(strip))return;
+      strip.style.minHeight=oldMin;
+      scroller.scrollTop=y;
+    });
+    scheduleSafetySave();
+  };
+
+  // The old restored free balloons were inheriting light text from the dark
+  // application shell, while their own backgrounds were solid white.
+  const oldMinimalHTML = minimalHTML;
+  minimalHTML = function(){
+    let html=oldMinimalHTML();
+    const css=`.wt-shape,.wt-shape>span:not(.wt-tail){color:#111!important;opacity:1!important;-webkit-text-fill-color:#111!important;text-shadow:none!important}.balloonText{color:#111!important;opacity:1!important;-webkit-text-fill-color:#111!important}`;
+    return html.replace('</style>',css+'</style>');
+  };
+
+  // Export/save: ask where to put a file, without navigating away from editor.
+  let pendingFile=null;
+  const oldDownloadBlob=downloadBlob;
+  function closeSafeDialog(){document.querySelector('#safeExportLayer')?.remove();}
+  function safeDialog(title,body){
+    closeSafeDialog();
+    const layer=document.createElement('div');
+    layer.id='safeExportLayer'; layer.setAttribute('role','dialog');layer.setAttribute('aria-modal','true');layer.setAttribute('aria-label',title);
+    layer.innerHTML=`<div class="safeCard"><h2></h2><div class="safeContent"></div></div>`;
+    layer.querySelector('h2').textContent=title;
+    if(typeof body==='string')layer.querySelector('.safeContent').innerHTML=body;
+    document.body.appendChild(layer);
+    return layer;
+  }
+  function fallbackDownload(name,blob){
+    // Keep the blob URL alive much longer than the original 2.5s on iOS.
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url; a.download=name; a.style.display='none';document.body.appendChild(a);a.click();
+    setTimeout(()=>{a.remove();URL.revokeObjectURL(url);},60000);
+  }
+  function makeFile(name,blob){
+    try{return new File([blob],name,{type:blob.type||'application/octet-stream'});}catch(e){return null;}
+  }
+  async function chooseSaveDestination(name,blob){
+    const file=makeFile(name,blob);
+    // Safari/iPad: the Share sheet offers "Save to Files" / "ファイルに保存".
+    if(file && navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
+      try{
+        await navigator.share({files:[file],title:name});
+        return true;
+      }catch(e){
+        if(e?.name==='AbortError')return false;
+        notify('共有できませんでした。ブラウザのダウンロードをご利用ください。');
+      }
+    }
+    // Chromium desktop: native location picker.
+    if(typeof window.showSaveFilePicker==='function'){
+      try{
+        const handle=await window.showSaveFilePicker({suggestedName:name});
+        const writer=await handle.createWritable();await writer.write(blob);await writer.close();
+        notify('指定した場所へ保存しました');return true;
+      }catch(e){if(e?.name==='AbortError')return false;notify('保存先を選択できませんでした');}
+    }
+    return false;
+  }
+  downloadBlob = function(name,blob){
+    if(!(blob instanceof Blob)){notify('ファイルを準備できませんでした');return;}
+    pendingFile={name,blob};
+    // Persist the document before opening any Safari share or download UI.
+    persistSafetyNow();
+    const layer=safeDialog('書き出し・保存先を選ぶ',`<p>ファイル：<strong id="safetyExportName"></strong></p><p>iPadは「ファイルに保存」を選ぶと、保存先フォルダを指定できます。ブラウザでのダウンロードも選べます。</p><div class="safeBtns"><button type="button" class="primary" id="safetyShare">ファイルに保存（共有メニュー）</button><button type="button" id="safetyDownload">ブラウザでダウンロード</button><button type="button" class="quiet" id="safetyCancel">編集に戻る（保存しない）</button></div><p class="safeFine">書き出し前に編集中の作品を端末内へ自動保存しています。ダウンロード後も編集画面を残す設計です。</p>`);
+    layer.querySelector('#safetyExportName').textContent=name;
+    layer.querySelector('#safetyShare').addEventListener('click',async()=>{
+      const f=pendingFile;if(!f)return;
+      const btn=layer.querySelector('#safetyShare');btn.disabled=true;
+      const saved=await chooseSaveDestination(f.name,f.blob);
+      btn.disabled=false;
+      if(saved){closeSafeDialog();pendingFile=null;}
+    });
+    layer.querySelector('#safetyDownload').addEventListener('click',()=>{
+      const f=pendingFile;if(!f)return;
+      closeSafeDialog();pendingFile=null;
+      fallbackDownload(f.name,f.blob);
+    });
+    layer.querySelector('#safetyCancel').addEventListener('click',()=>{pendingFile=null;closeSafeDialog();});
+  };
+
+  // Durable draft in IndexedDB: unlike localStorage this supports multi-MB
+  // data-URL images in the project. Never treat it as a replacement for JSON.
+  const DBNAME='webtoon-studio-draft-v020';
+  let db=null,autosaveEnabled=false,saving=false,queued=false,saveTimer=0;
+  const status=document.createElement('span');status.id='safetyStatus';status.textContent='自動保存：確認中';
+  const restoreBtn=document.createElement('button');restoreBtn.id='safetyRestoreBtn';restoreBtn.textContent='自動保存から復元';restoreBtn.style.display='none';
+  const actions=document.querySelector('header .headerActions');
+  actions?.appendChild(status);actions?.appendChild(restoreBtn);
+  function setSafetyStatus(msg,bad=false){status.textContent='自動保存：'+msg;status.style.color=bad?'#ffcc9c':'#a8deba';}
+  function openSafetyDB(){
+    return new Promise((resolve,reject)=>{
+      if(!window.indexedDB){reject(new Error('IndexedDBを使用できません'));return;}
+      const r=indexedDB.open(DBNAME,1);
+      r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('draft'))r.result.createObjectStore('draft');};
+      r.onsuccess=()=>resolve(r.result);
+      r.onerror=()=>reject(r.error||new Error('DBが開けません'));
+    });
+  }
+  function hasData(){return Boolean(project?.panels?.length||project?.pages?.length||project?.quotes?.length||project?.freeBalloons?.length||project?.freeTexts?.length);}
+  function draftRecord(){
+    return {timestamp:Date.now(),project:project,ui:{tab:ui.tab,panelId:ui.panelId,pageId:ui.pageId,workScroll:document.querySelector('#work')?.scrollTop||0,rightScroll:document.querySelector('#right')?.scrollTop||0,leftScroll:document.querySelector('#left')?.scrollTop||0}};
+  }
+  function putDraft(key,data){
+    return new Promise((resolve,reject)=>{
+      if(!db){reject(new Error('storage unavailable'));return;}
+      try{
+        const tx=db.transaction('draft','readwrite');tx.objectStore('draft').put(data,key);
+        tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||new Error('書き込めません'));
+        tx.onabort=()=>reject(tx.error||new Error('保存が中断しました'));
+      }catch(e){reject(e);}
+    });
+  }
+  function getDraft(key){
+    return new Promise((resolve,reject)=>{
+      if(!db){resolve(null);return;}
+      try{
+        const req=db.transaction('draft','readonly').objectStore('draft').get(key);
+        req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error);
+      }catch(e){reject(e);}
+    });
+  }
+  async function persistSafetyNow(){
+    if(!autosaveEnabled||!db||!hasData()){return false;}
+    if(saving){queued=true;return false;}
+    clearTimeout(saveTimer);saving=true;setSafetyStatus('保存中…');
+    try{
+      await putDraft('current',draftRecord());
+      setSafetyStatus('保存済み');restoreBtn.style.display='inline-flex';
+      return true;
+    }catch(e){
+      console.warn('Webtoon Studio draft save failure',e);
+      setSafetyStatus('保存不可・JSONで保存してください',true);
+      return false;
+    }finally{saving=false;if(queued){queued=false;scheduleSafetySave();}}
+  }
+  function scheduleSafetySave(){
+    if(!autosaveEnabled||!db||!hasData())return;
+    clearTimeout(saveTimer);setSafetyStatus('未保存の変更あり');
+    saveTimer=setTimeout(persistSafetyNow,650);
+  }
+  async function restoreSafety(record){
+    if(!record?.project)return;
+    autosaveEnabled=false;
+    project=record.project;
+    ensureSettings();
+    document.querySelector('#projectTitle').value=project.title||'新しいWebtoon';
+    ui.pageId=record.ui?.pageId||project.pages?.[0]?.id||null;
+    ui.panelId=record.ui?.panelId||project.panels?.[0]?.id||null;
+    ui.balloonId=null;ui.wtSelected=null;
+    ui.tab=(record.ui?.tab==='crop'||record.ui?.tab==='compose'||record.ui?.tab==='preview')?record.ui.tab:'compose';
+    render();
+    if(document.querySelector('#work')&&record.ui?.workScroll){
+      requestAnimationFrame(()=>{document.querySelector('#work').scrollTop=record.ui.workScroll||0;document.querySelector('#right').scrollTop=record.ui.rightScroll||0;document.querySelector('#left').scrollTop=record.ui.leftScroll||0;});
+    }
+    autosaveEnabled=true;
+    setSafetyStatus('編集内容を復元しました');
+    restoreBtn.style.display='inline-flex';
+  }
+  function showRestorePrompt(record){
+    const layer=safeDialog('前回の編集を復元できます',`<p>このiPadに保存されている編集内容が見つかりました。</p><p id="safetySavedMeta"></p><div class="safeBtns"><button type="button" class="primary" id="safetyRecover">前回の編集を復元する</button><button type="button" id="safetyNew">新しい作品として始める</button></div><p class="safeFine">画像も含めて復元を試みます。端末のデータ消去やプライベートブラウズでは復元できない場合があります。</p>`);
+    const when=new Date(record.timestamp||Date.now()).toLocaleString('ja-JP');
+    layer.querySelector('#safetySavedMeta').textContent=`保存日時：${when} ／ コマ：${record.project.panels?.length||0}個 ／ セリフ素材：${record.project.quotes?.length||0}個`;
+    layer.querySelector('#safetyRecover').addEventListener('click',async()=>{await restoreSafety(record);closeSafeDialog();});
+    layer.querySelector('#safetyNew').addEventListener('click',async()=>{
+      if(!confirm('新しい作品を開始しますか？ 前回の自動保存はバックアップに残し、以後は新しい作品に自動保存します。'))return;
+      try{await putDraft('backup',record);}catch(e){console.warn('Could not keep old backup',e);notify('前回のバックアップを残せませんでした。JSON保存を推奨します。');}
+      autosaveEnabled=true;setSafetyStatus('新しい作品を編集できます');closeSafeDialog();
+    });
+  }
+  restoreBtn.addEventListener('click',async()=>{
+    if(!db){notify('自動保存のデータを開けません');return;}
+    const r=await getDraft('current');
+    if(r?.project)showRestorePrompt(r);else notify('復元できるデータがありません');
+  });
+
+  (async()=>{
+    try{
+      db=await openSafetyDB();
+      const last=await getDraft('current');
+      if(last?.project && (last.project.panels?.length||last.project.pages?.length||last.project.freeBalloons?.length||last.project.freeTexts?.length||last.project.quotes?.length)){
+        restoreBtn.style.display='inline-flex';
+        setSafetyStatus('復元データあり');
+        showRestorePrompt(last);
+      }else{
+        autosaveEnabled=true;
+        setSafetyStatus('有効');
+      }
+    }catch(e){
+      console.warn('Webtoon Studio autosave unavailable',e);
+      setSafetyStatus('利用不可・JSONを手動保存してください',true);
+    }
+  })();
+
+  // Observe modifications made by both old and newly added editor controls.
+  document.addEventListener('input',scheduleSafetySave);
+  document.addEventListener('change',scheduleSafetySave);
+  document.addEventListener('pointerup',scheduleSafetySave);
+  document.addEventListener('click',e=>{
+    if(e.target.closest('#safeExportLayer,#safetyRestoreBtn'))return;
+    scheduleSafetySave();
+  });
+  const origRender=render;
+  render=function(){
+    const scroller=document.querySelector('#work'),y=scroller?.scrollTop||0;
+    origRender();
+    if(scroller && ui.tab==='compose')requestAnimationFrame(()=>{scroller.scrollTop=y;});
+    scheduleSafetySave();
+  };
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')persistSafetyNow();});
+  window.addEventListener('pagehide',()=>{persistSafetyNow();});
+  window.addEventListener('pageshow',()=>{
+    // In bfcache the existing editor is preserved; no reinitialization required.
+    setViewportColumnsHeight();
+  });
+})();
+
+</script>
 </body>
 </html>
